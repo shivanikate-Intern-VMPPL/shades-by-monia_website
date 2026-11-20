@@ -1,27 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Font face slots for custom brand fonts (Drop files into /public/fonts/) */
+@font-face {
+  font-family: 'Quagera';
+  src: url('/fonts/Quagera.woff2') format('woff2'),
+       url('/fonts/Quagera.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@font-face {
+  font-family: 'HDColton';
+  src: url('/fonts/HDColton-Regular.woff2') format('woff2'),
+       url('/fonts/HDColton-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --background: #F7F4EE;
+  --foreground: #0D0D0D;
+  --gold-primary: #D9A441;
+  --gold-light: #F2DD93;
+  --gold-dark: #B97A2B;
+}
+
+html {
+  background-color: #F7F4EE;
+  color: #0D0D0D;
+  scroll-behavior: initial; /* Lenis handles smooth scrolling */
 }
 
 body {
+  background-color: var(--background);
   color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Montserrat', 'HDColton', 'Jost', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+/* Luxury selection color */
+::selection {
+  background: #D9A441;
+  color: #0D0D0D;
+}
+
+/* Luxury custom scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #0D0D0D;
+}
+::-webkit-scrollbar-thumb {
+  background: #D9A441;
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #F2DD93;
+}
+
+/* Lenis smooth scrolling core styles */
+html.lenis, html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Film grain overlay */
+.film-grain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Editorial typography fluid clamps */
+.headline-huge {
+  font-size: clamp(2.5rem, 7vw, 7.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+
+.headline-large {
+  font-size: clamp(2rem, 5vw, 4.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.headline-medium {
+  font-size: clamp(1.5rem, 3.2vw, 2.75rem);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+}
+
+.label-editorial {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-weight: 500;
+}
+
+/* Gold stroke animation */
+@keyframes drawCircle {
+  0% {
+    stroke-dashoffset: 600;
   }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.gold-border-gradient {
+  border-image: linear-gradient(135deg, #F2DD93, #D9A441, #B97A2B) 1;
+}
+
+.gold-text-gradient {
+  background: linear-gradient(135deg, #F2DD93 0%, #D9A441 50%, #B97A2B 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
